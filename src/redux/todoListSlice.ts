@@ -3,7 +3,6 @@ import type { List, listContent, selectedList, tokenContentType } from '../types
 import authAxios from "../utils/authAxios";
 
 interface stateType {
-  count: number,
   listItems: List,
   selectedList: selectedList,
   listContent: listContent,
@@ -14,7 +13,6 @@ interface stateType {
 }
 
 const initialState: stateType = {
-  count: 0,
   listItems: [],
   selectedList: {} as selectedList,
   listContent: {} as listContent,
@@ -48,13 +46,21 @@ const todoListSlice = createSlice({
     },
     setListContent: (state: stateType, action: PayloadAction<listContent>) => {
       state.listContent = action.payload
+    },
+    logout: (state: stateType) => {
+      state = {
+        listItems: [],
+        selectedList: {} as selectedList,
+        listContent: {} as listContent,
+        selectedListContent: [],
+        accessToken: '',
+        tokenContent: {} as tokenContentType,
+        error: ''
+      }
     }
   }
 
 })
 
-// Export actions
 export const { setAccessToken, setError, setList, setListContent } = todoListSlice.actions;
-
-// Export the reducer
 export default todoListSlice.reducer;

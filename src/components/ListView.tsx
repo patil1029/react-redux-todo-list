@@ -36,13 +36,11 @@ const ListView: React.FC<ListViewProps> = ({ selectedList, sorting, setSorting }
         id: list.id,
         name: list.name,
         listId: list.listId,
-        completed: false, // Assuming that 'completed' state should be initially false
+        completed: false, 
       }));
       setItems(alteredList);
     }
   }, [listContent]);
-
-  console.log(items);
   
   sortedItems.current = [...items].sort((a, b) =>
     sorting === "date desc" ? b.id - a.id : a.id - b.id
@@ -55,7 +53,6 @@ const ListView: React.FC<ListViewProps> = ({ selectedList, sorting, setSorting }
         } 
       dispatch(createNewListItem(listContent.id,payload))
       setListItemName('')
-      // setSelectedList(selectedList)
     }
   }
 
@@ -63,11 +60,18 @@ const ListView: React.FC<ListViewProps> = ({ selectedList, sorting, setSorting }
     dispatch(deleteListItem(lisId,id))
   }
 
+  const logout = () => {
+    dispatch(logout)
+  }
+
   return (
     <div className="list-view">
       <div className="list-header">
         <h2>List {selectedList} items</h2>
-        <SortingDropdown sorting={sorting} setSorting={setSorting} />
+        <div className="list-header-btns">
+          <SortingDropdown sorting={sorting} setSorting={setSorting} />
+          <button className="signout-btn" onClick={logout}>Sign Out</button>
+        </div>
       </div>
       <ul>
         {sortedItems.current

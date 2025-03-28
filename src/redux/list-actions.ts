@@ -1,6 +1,6 @@
 import { createListItem, createListPayload } from "../types";
 import authAxios from "../utils/authAxios";
-import store from './store'; // Adjust the path as necessary
+import store from './store';
 import { setError, setList, setListContent } from "./todoListSlice";
 
 export const getList = () => {

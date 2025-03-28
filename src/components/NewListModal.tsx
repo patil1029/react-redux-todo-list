@@ -14,7 +14,7 @@ const NewListModal: React.FC<NewListModalProps> = ({ isOpen, onClose }) => {
   const dispatch = useDispatch<AppDispatch>()
   const [listName, setListName] = useState("");
 
-  if (!isOpen) return null; // Hide modal if not open
+  if (!isOpen) return null; 
 
   const handleSubmit = () => {
     if (listName.trim() !== "") {

@@ -17,7 +17,6 @@ export type validations = {
   taskName: string | null,
 }
 
-// export type List = Array<ListItem>
 export type List = ListItem[]
 
 export type ListItem = {

@@ -2,8 +2,6 @@ import { useState } from "react";
 import ListSidebar from "../components/ListSideBar";
 import ListView from "../components/ListView";
 import NewListModal from "../components/NewListModal";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../redux/store";
 
 export default function HomePage() {
   const [selectedList, setSelectedList] = useState(0);

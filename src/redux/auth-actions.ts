@@ -1,4 +1,4 @@
-import store from './store'; // Adjust the path as necessary
+import store from './store';
 import type { loginPayload, signUpPayload } from '../types'
 import { setAccessToken, setError } from './todoListSlice';
 import axios from 'axios';

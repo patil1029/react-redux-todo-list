@@ -31,7 +31,6 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      // errorElement: <ErrorPage />,
       children: [
         { index: true, element: <HomePage />,loader: checkAccessToken },
         {
@@ -51,7 +50,6 @@ function App() {
               }) 
               } catch (error) {
                 console.log(error);
-                
               } 
             }
             return null;
