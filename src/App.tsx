@@ -6,7 +6,6 @@ import { RootState } from './redux/store';
 import axios from 'axios';
 import { setAccessToken } from './redux/todoListSlice';
 
-
 function App() {
   const dispatch = useDispatch()
   const accessTokenContent = useSelector(
@@ -61,9 +60,8 @@ function App() {
 
   return (
     <div className="App">
-<RouterProvider router={router} />
-
-  </div>
+      <RouterProvider router={router} />
+    </div>
   );
 }
 

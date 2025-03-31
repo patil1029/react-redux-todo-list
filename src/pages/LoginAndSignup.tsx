@@ -4,6 +4,7 @@ import SignUp from "../components/auth/SignUp";
 
 export default function LoginAndSignup() {
   const [actionType, setActionType ] = useState('')
+  
   return (
     <div className="login-signup">
       <Login actionType={actionType} setActionType={setActionType} />

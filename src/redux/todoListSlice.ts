@@ -48,19 +48,11 @@ const todoListSlice = createSlice({
       state.listContent = action.payload
     },
     logout: (state: stateType) => {
-      state = {
-        listItems: [],
-        selectedList: {} as selectedList,
-        listContent: {} as listContent,
-        selectedListContent: [],
-        accessToken: '',
-        tokenContent: {} as tokenContentType,
-        error: ''
-      }
+      return initialState
     }
   }
 
 })
 
-export const { setAccessToken, setError, setList, setListContent } = todoListSlice.actions;
+export const { setAccessToken, setError, setList, setListContent, logout } = todoListSlice.actions;
 export default todoListSlice.reducer;

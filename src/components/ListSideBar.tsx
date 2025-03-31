@@ -13,17 +13,15 @@ const ListSidebar: React.FC<ListSidebarProps> = ({setSelectedList, selectedList,
   const dispatch = useDispatch<AppDispatch>();
   const list = useSelector((state: RootState) => state.todoList.listItems);
 
-  const listId = list[0]?.id
-
   useEffect(() => {
     dispatch(getList());
   }, [dispatch]);
 
   useEffect(()=> {
-    if(listId){
-      setSelectedList(listId)
+    if(list[0]?.id){
+      setSelectedList(list[0].id)
     }
-  },[setSelectedList,listId])
+  },[setSelectedList,list])
 
   const handleDeleteList = (id:number) => {
     dispatch(deleteList(id))
@@ -40,7 +38,7 @@ const ListSidebar: React.FC<ListSidebarProps> = ({setSelectedList, selectedList,
             key={list.id}
             className={list.id === selectedList || index=== selectedList ? "active" : ""}
           >
-            <span onClick={() => setSelectedList(list.id)}>{list.name} {list.id}{selectedList}</span>
+            <span onClick={() => setSelectedList(list.id)}>{list.name}</span>
             {list.id === selectedList && (
               <button className="close-btn" onClick={(e)=> handleDeleteList(list.id)} >X</button>
             )}

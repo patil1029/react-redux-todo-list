@@ -5,6 +5,8 @@ import { RootState, AppDispatch } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewListItem, deleteListItem, getListContent } from "../redux/list-actions";
 import { createListItem, ListItem } from "../types";
+import { logout } from '../redux/todoListSlice';
+import { useNavigate } from "react-router-dom";
 
 interface ListViewProps {
   selectedList: number,
@@ -19,10 +21,12 @@ interface ListViewContent extends ListItem {
 const ListView: React.FC<ListViewProps> = ({ selectedList, sorting, setSorting }) => {
   const [items, setItems] = useState<ListViewContent[]>([]);
   const [listItemName, setListItemName] = useState('')
+  const [showCompletedList, setShowCompletedList] = useState(false)
   const sortedItems = useRef<ListViewContent[]>([])
 
   const listContent = useSelector((state: RootState) => state.todoList.listContent);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate()
   
   useEffect(() => {
     if(selectedList > 0){
@@ -60,8 +64,17 @@ const ListView: React.FC<ListViewProps> = ({ selectedList, sorting, setSorting }
     dispatch(deleteListItem(lisId,id))
   }
 
-  const logout = () => {
-    dispatch(logout)
+  const handleCompleteList = (id:number) => {
+    const updatedItems = items.map((item) => 
+      item.id === id ? { ...item, completed: !item.completed } : item
+    );
+    setItems(updatedItems);
+  }
+
+  const logOut = async() => {
+    await dispatch(logout())
+    setItems([])
+    navigate('/auth')
   }
 
   return (
@@ -70,7 +83,7 @@ const ListView: React.FC<ListViewProps> = ({ selectedList, sorting, setSorting }
         <h2>List {selectedList} items</h2>
         <div className="list-header-btns">
           <SortingDropdown sorting={sorting} setSorting={setSorting} />
-          <button className="signout-btn" onClick={logout}>Sign Out</button>
+          <button className="signout-btn" onClick={()=>logOut()}>Sign Out</button>
         </div>
       </div>
       <ul>
@@ -79,7 +92,7 @@ const ListView: React.FC<ListViewProps> = ({ selectedList, sorting, setSorting }
           .map((item) => (
             <li key={item.id} className="list-item">
               <div className="check-name">
-                <input type="checkbox" />
+                <input type="checkbox" onChange={()=> handleCompleteList(item.id)} />
                 {item.name}
               </div>
               <button className="delete-btn" onClick={(e)=> handleDeleteListItem(item.listId,item.id) }>X</button>
@@ -87,7 +100,8 @@ const ListView: React.FC<ListViewProps> = ({ selectedList, sorting, setSorting }
           ))}
       </ul>
       <div className="completed">
-        <h3>Completed ▼</h3>
+        <h3 onClick={()=> setShowCompletedList(prevState=> !prevState )}>Completed ▼</h3>
+        {showCompletedList &&
         <ul>
           {sortedItems.current
             .filter((item) => item.completed)
@@ -97,7 +111,7 @@ const ListView: React.FC<ListViewProps> = ({ selectedList, sorting, setSorting }
                 {item.name}
               </li>
             ))}
-        </ul>
+        </ul>}
       </div>
       <Input
         id="new-list-content"
