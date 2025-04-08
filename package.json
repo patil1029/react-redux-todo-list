@@ -27,7 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://nestjs-dev.deploy.nl",
+  "proxy": "https://nestjs.test.deploy.nl",
   "eslintConfig": {
     "extends": [
       "react-app",
